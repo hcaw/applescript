@@ -3,7 +3,7 @@
 on run
     set osver to system version of (system info)
 
-    if osver ≥ 14.0 then
+    if osver >= 14.0 then
         open location "x-apple.systempreferences:com.apple.preference.displays"
 
         tell application "System Settings"
