@@ -12,24 +12,26 @@ notification_centre=12
 lock_screen=13
 quick_note=14
 
+toggle_hot_corners() {
+    # Read current hot corner settings
+    top_left=$(defaults read com.apple.dock wvous-tl-corner)
 
+    if [ "$top_left" -eq "$none" ]; then
+        # Set hot corners to mission control and application windows
+        defaults write com.apple.dock wvous-tl-corner -int $mission_control
+        defaults write com.apple.dock wvous-bl-corner -int $application_windows
+        echo "Hot corners set to Mission Control (top left) and Application Windows (bottom left)."
+    else
+        # Set all corners to none
+        defaults write com.apple.dock wvous-tl-corner -int $none
+        defaults write com.apple.dock wvous-bl-corner -int $none
+        defaults write com.apple.dock wvous-tr-corner -int $none
+        defaults write com.apple.dock wvous-br-corner -int $none
+        echo "All hot corners turned off."
+    fi
+}
 
-# Read current hot corner settings
-top_left=$(defaults read com.apple.dock wvous-tl-corner)
-
-if [ "$top_left" -eq "$none" ]; then
-    # Set hot corners to mission control and application windows
-    defaults write com.apple.dock wvous-tl-corner -int $mission_control
-    defaults write com.apple.dock wvous-bl-corner -int $application_windows
-    echo "Hot corners set to Mission Control (top left) and Application Windows (bottom left)."
-else
-    # Set all corners to none
-    defaults write com.apple.dock wvous-tl-corner -int $none
-    defaults write com.apple.dock wvous-bl-corner -int $none
-    defaults write com.apple.dock wvous-tr-corner -int $none
-    defaults write com.apple.dock wvous-br-corner -int $none
-    echo "All hot corners turned off."
-fi
+toggle_hot_corners
 
 # Restart Dock to apply changes
 killall Dock
