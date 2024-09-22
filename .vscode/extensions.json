@@ -1,6 +1,9 @@
 {
 	"recommendations": [
 		"idleberg.applescript",
-		"johnpapa.vscode-peacock"
+		"johnpapa.vscode-peacock",
+		"foxundermoon.shell-format",
+		"timonwong.shellcheck",
+		"tetradresearch.vscode-h2o"
 	]
 }
