@@ -31,4 +31,58 @@ toggle_hot_corners() {
     killall Dock
 }
 
+# WIP
+toggle_trackpad_gestures() {
+    swipe_enabled=$(defaults read com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture)
+
+    if [ "$swipe_enabled" -eq 1 ]; then
+        # defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -int 0
+        # defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 0
+        # Need to disable:
+        # - Mission control (four finger swipe up)
+        defaults write com.apple.dock showMissionControlGestureEnabled -int 0
+        # - App expose (four finger swipe down)
+        defaults write com.apple.dock showAppExposeGestureEnabled -int 0
+        # - Launchpad (four finger pinch)
+        defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
+        # - Show desktop (four finger spread)
+        defaults write com.apple.dock showDesktopGestureEnabled -int 0
+        # - Pinch to zoom
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch -int 0
+        # - Smart zoom (double-tap with two fingers)
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -int 0
+        # - Rotate (with two fingers)
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate -int 0
+        # - Secondary click with two fingers
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerSecondaryClick -int 0
+        # - Look up & data detectors (three finger tap)
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture -int 0
+        # - Swipe between pages (two fingers)
+        defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -int 0
+        # - Notification Center (two fingers from right edge)
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 0
+
+        # Read current settings for trackpad gestures
+        defaults read com.apple.dock showMissionControlGestureEnabled
+        defaults read com.apple.dock showAppExposeGestureEnabled
+        defaults read com.apple.dock showLaunchpadGestureEnabled
+        defaults read com.apple.dock showDesktopGestureEnabled
+        defaults read com.apple.AppleMultitouchTrackpad TrackpadPinch
+        defaults read com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture
+        defaults read com.apple.AppleMultitouchTrackpad TrackpadRotate
+        defaults read com.apple.AppleMultitouchTrackpad TrackpadTwoFingerSecondaryClick
+        defaults read com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture
+        defaults read NSGlobalDomain AppleEnableSwipeNavigateWithScrolls
+        defaults read com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture
+
+        echo "Trackpad gestures disabled."
+    else
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -int 1
+        defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 1
+        echo "Trackpad gestures enabled."
+    fi
+
+    killall SystemUIServer
+}
+
 toggle_hot_corners
