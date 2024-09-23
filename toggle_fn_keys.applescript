@@ -1,3 +1,5 @@
+-- Note: I've only tested this out on macOS 14 (Sonoma), and it works as expected.
+
 on run
     set osver to system version of (system info)
     
